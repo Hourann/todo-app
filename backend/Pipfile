@@ -1,11 +1,12 @@
 [[source]]
-url = "https://pypi.org/simple"
+url = "https://pypi.douban.com/simple"
 verify_ssl = true
 name = "pypi"
 
 [packages]
 django = "==1.8"
 djangorestframework = "*"
+"psycopg2" = "*"
 
 [dev-packages]
 
