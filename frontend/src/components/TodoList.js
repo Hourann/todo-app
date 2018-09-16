@@ -11,7 +11,7 @@ class TodoList extends Component {
 
           this.props.todos.map((todo) => {
             return todo.id === this.props.selectedId ?
-              <TodoEditor/> :
+              <TodoEditor key={todo.id}/> :
               <TodoItem key={todo.id} {...todo} actions={this.props.actions}/>
           })
         }
@@ -20,5 +20,14 @@ class TodoList extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  switch (state.order) {
+    case "ID":
+      state.todos.sort((b, a) => a.id - b.id);
+      return state;
+    default:
+      return state;
+  }
+}
 
-export default connect(state => state)(TodoList)
+export default connect(mapStateToProps)(TodoList)

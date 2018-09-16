@@ -38,13 +38,32 @@ let actions = {
     return {type: SELECT_TODO, id};
   },
   updateTodo(todo) {
-    console.log(todo);
-    return {type: "UPDATE_TODO"}
+    return (dispatch, getState) => {
+      if (!getState().isFetching)
+        return dispatch(updateTodo(todo));
+    }
   },
   cancelSelection() {
     return {type: CANCEL_SELECTION};
   }
 };
+
+function updateTodo(todo) {
+  return dispatch => {
+    dispatch(makeRequest());
+    return fetch(LIST_API + todo.id,
+      {
+        method: "PUT",
+        headers: {
+          "Accept": 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(todo)
+      })
+      .then(() => dispatch(fetchTodos()))
+      .then(() => dispatch(actions.cancelSelection()))
+  }
+}
 
 function shouldFetchTodos(state) {
   const todos = state.todos;
@@ -66,7 +85,7 @@ function toggleTodo(id) {
     dispatch(makeRequest());
     let todo = getState().todos.find(todo => todo.id === id);
     todo.done = !todo.done;
-    return fetch(LIST_API,
+    return fetch(LIST_API + id,
       {
         method: "PUT",
         headers: {

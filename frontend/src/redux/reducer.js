@@ -8,7 +8,6 @@ export default function reducer(state = {
   selectedId: null
 }, action) {
   switch (action.type) {
-    // case 'ADD_TODO':
     case RECEIVE_TODOS:
       return Object.assign({}, state, {
         isFetching: false,
@@ -20,22 +19,6 @@ export default function reducer(state = {
       return Object.assign({}, state, {selectedId: action.id});
     case CANCEL_SELECTION:
       return Object.assign({}, state, {selectedId: null});
-
-    // case 'TOGGLE_TODO':
-    //   return Object.assign({}, state, {
-    //     todos: state.todos.map((todo) => {
-    //       return todo.id === action.id ?
-    //         Object.assign({}, todo, {
-    //           done: !todo.done
-    //         }) : todo
-    //     })
-    //   });
-    // case 'DELETE_TODO':
-    //   return Object.assign({}, state, {
-    //     todos: state.todos.filter((todo) => {
-    //       return todo.id !== action.id
-    //     })
-    //   });
     default:
       return state;
   }
