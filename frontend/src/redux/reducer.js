@@ -23,5 +23,3 @@ export default function reducer(state = {
       return state;
   }
 };
-// let reducer = combineReducers(todos);
-// export default reducer

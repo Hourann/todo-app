@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
+
 class TodoInput extends Component {
     constructor(props) {
         super(props)
@@ -25,7 +26,6 @@ class TodoInput extends Component {
     render() {
         return (
             <div className="todo__input">
-                <div className="title">
                     <input
                         type="text"
                         placeholder="title.."
@@ -33,10 +33,8 @@ class TodoInput extends Component {
                         value={this.state.title}
                         onChange={this.handleTitleChange.bind(this)}
                     />
-                </div>
-                <div className="submitButton">
-                    <button onClick={this.handleSubmit.bind(this)}>Add</button>
-                </div>
+
+              <button onClick={this.handleSubmit.bind(this)}>Add</button>
             </div>
         )
     }

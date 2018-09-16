@@ -24,6 +24,10 @@ class TodoEditor extends Component {
       <label>Done<input type="checkbox" checked={done}
                         onChange={event => this.setState({done: !done})}/>
       </label><br/>
+      <select value={priority} onChange={event => this.setState({priority: event.target.value})}>
+        <option value="H">HIGH</option>
+        <option value="N">NORMAL</option>
+      </select>
 
       <label>Expired at<input type="datetime-local" defaultValue={expire_date}
                               onChange={event => this.setState({expire_date: event.target.value})}/>
