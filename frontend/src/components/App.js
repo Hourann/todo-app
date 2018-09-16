@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import TodoInput from './TodoInput'
 import TodoList from './TodoList'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import actions from '../redux/actions'
+
 class App extends Component {
   render() {
     return (
@@ -24,4 +25,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App)
+
 

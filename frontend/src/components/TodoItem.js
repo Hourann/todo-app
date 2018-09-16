@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import actions from '../redux/actions';
 import PropTypes from 'prop-types'
+import {Button} from 'react-bootstrap';
 
 const styleFinished = {
   textDecoration: "line-through",
@@ -43,9 +44,10 @@ class TodoItem extends Component {
           }}
           style={style}
         >{this.state.title}</span>
-        <button onClick=
+        <Button bsStyle="danger" bsSize="small" className="delete__button"
+                onClick=
                   {() => this.props.deleteTodo(this.props.id)}>Delete
-        </button>
+        </Button>
       </li>
     )
   }

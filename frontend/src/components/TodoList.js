@@ -6,7 +6,7 @@ import TodoEditor from './TodoEditor';
 class TodoList extends Component {
   render() {
     return (
-      <ul className="todo__list">
+      <ul className="todo__list list-unstyled">
         {
 
           this.props.todos.map((todo) => {

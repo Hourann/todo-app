@@ -3,3 +3,39 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+li {
+  background: #fff;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  line-height: 40px;
+}
+
+.delete__button {
+  position: absolute;
+  right: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+#root {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 800px;
+}
+
+.todo__item {
+  position: relative;
+}
+
+.form-control {
+  display: inline;
+}
+
+button {
+  margin-left: 20px;
+}
