@@ -1,41 +1,109 @@
-import $ from 'jquery';
-var todos = [];
-const LIST_API = 'http://127.0.0.1:8000/api/';
-function updateTodo() {
-  $.ajax({
-    url: LIST_API,
-    async: false,
-    success: resp => todos = resp
-  });
-}
+import {LIST_API} from "../const";
 
+export const RECEIVE_TODOS = "RECEIVE_TODOS";
+export const FETCHING = "FETCHING";
+export const SELECT_TODO = "SELECT_TODO";
 let actions = {
   addTodo: function (title) {
-    $.ajax({
-      url: LIST_API,
-      method: 'post',
-      data: { title },
-      async: false,
-      success: resp => updateTodo()
-    });
-    return {
-      type: 'ADD_TODO',
-      title: title,
-      todos
-    }
+    return (dispatch, getState) => {
+      if (!getState().isFetching) {
+        return dispatch(postTodo(title))
+      }
+    };
   },
-  completeTodo: function (id) {
-    return {
-      type: 'COMPLETE_TODO',
-      id: id
+  toggleTodo: function (id) {
+    return (dispatch, getState) => {
+      if (!getState().isFetching) {
+        return dispatch(toggleTodo(id));
+      }
     }
   },
   deleteTodo: function (id) {
-    return {
-      type: 'DELETE_TODO',
-      id: id
+    return (dispatch, getState) => {
+      if (!getState().isFetching) {
+        return dispatch(deleteTodo(id))
+      }
     }
+  },
+  fetchTodos() {
+    return (dispatch, getState) => {
+      if (shouldFetchTodos(getState())) {
+        return dispatch(fetchTodos())
+      }
+    }
+  },
+  selectTodo(id) {
+    return {type: SELECT_TODO, id};
+  }
+};
+
+function shouldFetchTodos(state) {
+  const todos = state.todos;
+  if (!todos)
+    return true;
+  return !state.isFetching;
+}
+
+function deleteTodo(id) {
+  return dispatch => {
+    dispatch(makeRequest());
+    return fetch(LIST_API + id, {method: "DELETE"})
+      .then(() => dispatch(fetchTodos()))
   }
 }
-export default actions
 
+function toggleTodo(id) {
+  return (dispatch, getState) => {
+    dispatch(makeRequest());
+    let todo = getState().todos.find(todo => todo.id === id);
+    todo.done = !todo.done;
+    return fetch(LIST_API,
+      {
+        method: "PUT",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(todo)
+      })
+      .then(() => dispatch(fetchTodos()))
+  }
+}
+
+function fetchTodos() {
+  return dispatch => {
+    dispatch(makeRequest());
+    return fetch(LIST_API)
+      .then(resp => resp.json())
+      .then(todos => dispatch(receiveTodos(todos)));
+  }
+}
+
+function makeRequest() {
+  return {type: "FETCHING"};
+}
+
+function receiveTodos(todos) {
+  return {
+    type: "RECEIVE_TODOS",
+    todos
+  }
+}
+
+function postTodo(title) {
+  return dispatch => {
+    dispatch(makeRequest());
+    return fetch(LIST_API,
+      {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({title})
+      })
+      .then(() => dispatch(fetchTodos()))
+  }
+}
+
+export default actions
