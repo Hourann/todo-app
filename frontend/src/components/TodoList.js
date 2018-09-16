@@ -10,8 +10,9 @@ class TodoList extends Component {
         {
 
           this.props.todos.map((todo) => {
-            return todo.id === this.props.selectedId ? <TodoEditor/> : <TodoItem key={todo.id} {...todo} actions=
-              {this.props.actions}/>
+            return todo.id === this.props.selectedId ?
+              <TodoEditor/> :
+              <TodoItem key={todo.id} {...todo} actions={this.props.actions}/>
           })
         }
       </ul>

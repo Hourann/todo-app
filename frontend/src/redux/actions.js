@@ -3,6 +3,8 @@ import {LIST_API} from "../const";
 export const RECEIVE_TODOS = "RECEIVE_TODOS";
 export const FETCHING = "FETCHING";
 export const SELECT_TODO = "SELECT_TODO";
+export const CANCEL_SELECTION = "CANCEL_SELECTION";
+
 let actions = {
   addTodo: function (title) {
     return (dispatch, getState) => {
@@ -34,6 +36,13 @@ let actions = {
   },
   selectTodo(id) {
     return {type: SELECT_TODO, id};
+  },
+  updateTodo(todo) {
+    console.log(todo);
+    return {type: "UPDATE_TODO"}
+  },
+  cancelSelection() {
+    return {type: CANCEL_SELECTION};
   }
 };
 
