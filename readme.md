@@ -19,6 +19,53 @@ cd frontend
 yarn install
 yarn start
 ```
+## 后端接口
+- `/api/`
+    - `GET`: 返回todo列表
+    - `POST`: 增加一个新的todo，返回这个todo的json
+- `/api/<id>`
+    - `GET`:返回对应id的todo
+    - `PUT`:修改todo
+    - `DELETE`: 删除todo
+## Todo模型
+```python
+class Todo(models.Model):
+    # mandatory
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True, default="")
+    done = models.BooleanField(default=False, blank=True)
+
+    # optional
+    expire_date = models.DateTimeField(null=True, blank=True)
+    priority = models.CharField(max_length=1, choices=(('H', 'High'), ('N', 'Normal')), default='N')
+```
+## redux store结构
+```json
+{
+    todos: [
+        {
+            id: 1,
+            title: "First Todo",
+            description: "FooBar",
+            done: false,
+            expire_date: "",
+            priority: "N",
+        }
+        ...
+    ],
+    visibility: 'SHOW_ALL',
+    order: 'ID',
+    isFetching: false,
+    selectedId: null
+}
+```
+- `visibility`用于控制可见性（目前未实现，预留）。
+
+- `order`用于指定排序方式。目前只做了根据ID排序。
+
+- `isFetching`用于控制HTTP请求，防止用户连续点击下的重复请求。
+
+- `selectedId`用于指示正在编辑的todo id。
 ## 效果演示：
 ![](showcase.gif)
 
