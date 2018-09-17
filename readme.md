@@ -40,7 +40,7 @@ class Todo(models.Model):
     priority = models.CharField(max_length=1, choices=(('H', 'High'), ('N', 'Normal')), default='N')
 ```
 ## redux store结构
-```json
+```javascript
 {
     todos: [
         {
@@ -50,7 +50,7 @@ class Todo(models.Model):
             done: false,
             expire_date: "",
             priority: "N",
-        }
+        },
         ...
     ],
     visibility: 'SHOW_ALL',
