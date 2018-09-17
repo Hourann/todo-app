@@ -5,7 +5,7 @@
 - 前端：React+Redux+Bootsrap
 
 ## 安装
-依赖：`python2.7`,`node.js`,`yarn`。
+依赖：`python2.7`, `pipenv`, `node.js`, `yarn`。
 ```bash
 git clone https://github.com/Hourann/todo-app.git todo
 cd todo
