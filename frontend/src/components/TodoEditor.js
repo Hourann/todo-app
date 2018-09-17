@@ -30,7 +30,7 @@ class TodoEditor extends Component {
         <div className="col-sm-10">
 
         <textarea className="form-control" value={description}
-                  onChange={event => this.setState({description: event.target.value})}></textarea>
+                  onChange={event => this.setState({description: event.target.value})}/>
         </div>
       </div>
 
